@@ -28,7 +28,9 @@ jobs:
       - name: Run OpenCode Agent with opencode-go
         run: |
           echo "Running opencode agent for ${{ github.event_name }} event..."
-          opencode github run
+          opencode github run --log-level DEBUG || true
+          echo "--- Debug log ---"
+          cat /home/runner/.local/share/opencode/log/*.log 2>/dev/null || echo "No log file found"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MODEL: opencode-go/kimi-k2.6
