@@ -29,4 +29,4 @@ jobs:
           opencode github run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENCODE_MODEL: opencode-go
+          MODEL: opencode-go
