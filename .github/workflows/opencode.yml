@@ -23,7 +23,10 @@ jobs:
           node-version: '20'
       - name: Install OpenCode
         run: npm install -g opencode-ai
-      - name: Run OpenCode Agent
-        run: opencode run -m opencode-go "Handle this GitHub event"
+      - name: Run OpenCode Agent with opencode-go
+        run: |
+          echo "Running opencode agent for ${{ github.event_name }} event..."
+          opencode github run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENCODE_MODEL: opencode-go
