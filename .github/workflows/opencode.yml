@@ -1,0 +1,29 @@
+name: OpenCode Agent
+
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  opencode:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install OpenCode
+        run: npm install -g opencode-ai
+      - name: Run OpenCode Agent
+        run: opencode run -m opencode-go "Handle this GitHub event"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
